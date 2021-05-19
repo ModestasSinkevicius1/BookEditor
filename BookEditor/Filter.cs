@@ -23,9 +23,7 @@ namespace BookEditor
             else if (filterKey == "category")
                 bTempList = bList.OrderBy(i => i.category).ToList();
             else if (filterKey == "language")
-                bTempList = bList.OrderBy(i => i.language).ToList();
-            else if (filterKey == "date")
-                bTempList = bList.OrderBy(i => i.publicationDate).ToList();
+                bTempList = bList.OrderBy(i => i.language).ToList();          
             else if (filterKey == "isbn")
                 bTempList = bList.OrderBy(i => i.isbn).ToList();           
 
