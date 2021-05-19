@@ -14,67 +14,141 @@ namespace BookEditor
         List<Book> bList = new List<Book>();
         List<User> uList = new List<User>();
 
-        public List<Book> ReadJSON(string path)
+        public JSONReaderWriter()
         {
-            string jsonText = File.ReadAllText(path);
-            bList = JsonSerializer.Deserialize<List<Book>>(jsonText);        
-
-            return bList;
-        }
-
-        public List<User> ReadUserJSON(string path)
-        {
-            string jsonText = File.ReadAllText(path);
-            uList = JsonSerializer.Deserialize<List<User>>(jsonText);          
-
-            return uList;
-        }
-
-        public void WriteJSON(object obj, string path)
-        {
-            if (obj.GetType() == typeof(Book))
+            if (!File.Exists("user.json"))
             {
-                Book b = (Book)obj;
-    
-                bList = ReadJSON(path);
+                File.WriteAllText("user.json", "[]");
+            }
+            if (!File.Exists("book.json"))
+            {
+                File.WriteAllText("book.json", "[]");
+            }
+        }
 
-                bList.Add(b);
+        public List<Book> ReadBookFromJSON(string path)
+        {
+            try
+            {
+                string jsonText;
+                if (File.Exists(path))
+                {
+                    jsonText = File.ReadAllText(path);              
+                }
+                else
+                {
+                    File.WriteAllText(path, "[]");
+                    jsonText = File.ReadAllText(path);
+                }
+
+                bList = JsonSerializer.Deserialize<List<Book>>(jsonText);
+                return bList;
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+                Console.ReadLine();
+
+                return null;
+            }
+        }
+
+        public List<User> ReadUserFromJSON(string path)
+        {
+            try
+            {
+                string jsonText;
+                if (File.Exists(path))
+                {
+                    jsonText = File.ReadAllText(path);
+                    
+                }
+                else
+                {
+                    File.WriteAllText(path, "[]");
+                    jsonText = File.ReadAllText(path);
+                }
+
+                uList = JsonSerializer.Deserialize<List<User>>(jsonText);
+                return uList;
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+                Console.ReadLine();
+
+                return null;
+            }
+        }
+
+        public void WriteObjectToJSON(object obj, string path)
+        {
+            try
+            {
+                if (obj.GetType() == typeof(Book))
+                {
+                    Book b = (Book)obj;
+
+                    bList = ReadBookFromJSON(path);
+
+                    bList.Add(b);
+
+                    string jsonFormat = JsonSerializer.Serialize(bList);
+
+                    File.WriteAllText(path, jsonFormat);
+                }
+                else if (obj.GetType() == typeof(User))
+                {
+                    User u = (User)obj;
+
+                    uList = ReadUserFromJSON(path);
+
+                    uList.Add(u);
+
+                    string jsonFormat = JsonSerializer.Serialize(uList);
+
+                    File.WriteAllText(path, jsonFormat);
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+                Console.ReadLine();
+            }
+        }
+        
+        public void DeleteUserFromJSON(string path, User u)
+        {
+            try
+            {
+                uList.Remove(u);
+
+                string jsonFormat = JsonSerializer.Serialize(uList);
+
+                File.WriteAllText(path, jsonFormat);
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+                Console.ReadLine();
+            }
+        }
+
+        public void DeleteBookFromJSON(string path, Book b)
+        {
+            try
+            {
+                bList.Remove(b);
 
                 string jsonFormat = JsonSerializer.Serialize(bList);
 
                 File.WriteAllText(path, jsonFormat);
             }
-            else if(obj.GetType() == typeof(User))
+            catch (Exception exc)
             {
-                User u = (User)obj;
-
-                uList = ReadUserJSON(path);
-                
-                uList.Add(u);
-                
-                string jsonFormat = JsonSerializer.Serialize(uList);
-
-                File.WriteAllText(path, jsonFormat);
-               
+                Console.WriteLine(exc.Message);
+                Console.ReadLine();
             }
-        }
-        
-        public void UpdateJSON(string path, User u)
-        {
-            uList.Remove(u);
-
-            string jsonFormat = JsonSerializer.Serialize(uList);
-
-            File.WriteAllText(path, jsonFormat);
-        }
-
-        public void DeleteBookFromJSON(string path, Book b)
-        {
-            bList.Remove(b);
-
-            string jsonFormat = JsonSerializer.Serialize(bList);
-
-            File.WriteAllText(path, jsonFormat);
         }
     }
 }
