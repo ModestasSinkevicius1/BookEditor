@@ -32,4 +32,4 @@ Application used to control Visma's library
 #
 **delete** (book_name) or (author) - removes book from library.
 
-**Example: delete Vagis
+**Example:** delete Vagis
