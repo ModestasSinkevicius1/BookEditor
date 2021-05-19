@@ -67,5 +67,14 @@ namespace BookEditor
 
             File.WriteAllText(path, jsonFormat);
         }
+
+        public void DeleteBookFromJSON(string path, Book b)
+        {
+            bList.Remove(b);
+
+            string jsonFormat = JsonSerializer.Serialize(bList);
+
+            File.WriteAllText(path, jsonFormat);
+        }
     }
 }

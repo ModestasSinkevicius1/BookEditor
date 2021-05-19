@@ -7,26 +7,27 @@ namespace BookEditor
         static void Main(string[] args)
         {
             Book b;
-            User u;
+            User u;            
 
             JSONReaderWriter jsonRW = new JSONReaderWriter();
+            Filter f = new Filter();
 
             string bookAdress;
             Console.WriteLine("Visma book library \nWhat would you like to do?");
             bookAdress = Console.ReadLine();
 
-            string[] splitBookAdress = bookAdress.Split(" ");
+            string[] commandAddress = bookAdress.Split(" ");
 
-            if (splitBookAdress[0] == "add")
+            if (commandAddress[0] == "add")
             {
-                if (splitBookAdress.Length - 1 == 6)
+                if (commandAddress.Length - 1 == 6)
                 {
-                    string bookName = splitBookAdress[1];
-                    string bookAuthor = splitBookAdress[2];
-                    string bookCategory = splitBookAdress[3];
-                    string bookLanguage = splitBookAdress[4];
-                    DateTime bookDate = Convert.ToDateTime(splitBookAdress[5]);
-                    int bookISBN = Convert.ToInt32(splitBookAdress[6]);
+                    string bookName = commandAddress[1];
+                    string bookAuthor = commandAddress[2];
+                    string bookCategory = commandAddress[3];
+                    string bookLanguage = commandAddress[4];
+                    DateTime bookDate = Convert.ToDateTime(commandAddress[5]);
+                    int bookISBN = Convert.ToInt32(commandAddress[6]);
 
                     b = new Book(bookName, bookAuthor, bookCategory, bookLanguage, bookDate, bookISBN);
 
@@ -35,18 +36,34 @@ namespace BookEditor
                 else
                     Console.WriteLine("Book adress was not complete, aborting operation");
             }
-            else if (splitBookAdress[0] == "read")
-            {                
-                foreach(Book bookRow in jsonRW.ReadJSON("book.json"))
+            else if (commandAddress[0] == "readall")
+            {           
+                if (commandAddress.Length - 1 == 1)
                 {
-                    Console.WriteLine(bookRow.name);
+                    string filterKey = commandAddress[1];
+                    if (filterKey != "taken")
+                    {
+                        foreach (Book bRow in f.FilterBookList(jsonRW.ReadJSON("book.json"), filterKey))
+                        {
+                            Console.WriteLine(bRow.name + " " + bRow.author + " " + bRow.category
+                                + " " + bRow.language + " " + bRow.publicationDate.ToShortDateString() + " " + bRow.isbn);
+                        }
+                    }
+                    else
+                    {
+                        foreach (Book bRow in f.ShowTakenBookList(jsonRW.ReadUserJSON("user.json")))
+                        {
+                            Console.WriteLine(bRow.name + " " + bRow.author + " " + bRow.category
+                                + " " + bRow.language + " " + bRow.publicationDate.ToShortDateString() + " " + bRow.isbn);
+                        }
+                    }
                 }
             }
-            else if (splitBookAdress[0] == "take")
+            else if (commandAddress[0] == "take")
             {
-                if (splitBookAdress.Length - 1 == 3)
+                if (commandAddress.Length - 1 == 3)
                 {                  
-                    string bookName = splitBookAdress[1];
+                    string bookName = commandAddress[1];
 
                     bool isBookFound = false;
 
@@ -56,8 +73,8 @@ namespace BookEditor
                         {
                             isBookFound = true;
 
-                            string user = splitBookAdress[2];
-                            int period = Convert.ToInt32(splitBookAdress[3]);
+                            string user = commandAddress[2];
+                            int period = Convert.ToInt32(commandAddress[3]);
 
                             if (period < 3)
                             {
@@ -93,12 +110,12 @@ namespace BookEditor
                     
                 }
             }
-            else if(splitBookAdress[0] == "return")
+            else if(commandAddress[0] == "return")
             {
-                if (splitBookAdress.Length - 1 == 2)
+                if (commandAddress.Length - 1 == 2)
                 {
-                    string bookName = splitBookAdress[1];
-                    string user = splitBookAdress[2];
+                    string bookName = commandAddress[1];
+                    string user = commandAddress[2];
 
                     bool isBookFound = false;
 
@@ -116,6 +133,22 @@ namespace BookEditor
                     }
                     if(!isBookFound)
                         Console.WriteLine("Book not found");
+                }
+            }
+            else if(commandAddress[0] == "delete")
+            {
+                if(commandAddress.Length - 1 == 1)
+                {
+                    string bookName = commandAddress[1];
+                    foreach(Book bRow in jsonRW.ReadJSON("book.json"))
+                    {
+                        if(bRow.name == bookName)
+                        {
+                            jsonRW.DeleteBookFromJSON("book.json", bRow);
+                            break;
+                        }
+                    }
+
                 }
             }
             else
