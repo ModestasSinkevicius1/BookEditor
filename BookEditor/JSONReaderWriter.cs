@@ -9,11 +9,13 @@ using System.IO;
 
 namespace BookEditor
 {
+    //class used to handle JSON files and update list
     class JSONReaderWriter
     {
         List<Book> bList = new List<Book>();
         List<User> uList = new List<User>();
 
+        //constructor used to create necessary files if not exist
         public JSONReaderWriter()
         {
             if (!File.Exists("user.json"))
@@ -26,6 +28,7 @@ namespace BookEditor
             }
         }
 
+        //method meant to read "book.json" and add to list
         public List<Book> ReadBookFromJSON(string path)
         {
             try
@@ -53,6 +56,7 @@ namespace BookEditor
             }
         }
 
+        //method meant to read "user.json" and add to list
         public List<User> ReadUserFromJSON(string path)
         {
             try
@@ -81,6 +85,7 @@ namespace BookEditor
             }
         }
 
+        //method used to serialize and write objects to json file
         public void WriteObjectToJSON(object obj, string path)
         {
             try
@@ -117,6 +122,7 @@ namespace BookEditor
             }
         }
         
+        //method used to delete given object from "user.json"
         public void DeleteUserFromJSON(string path, User u)
         {
             try
@@ -134,6 +140,7 @@ namespace BookEditor
             }
         }
 
+        //method used to delete given object from "book.json"
         public void DeleteBookFromJSON(string path, Book b)
         {
             try

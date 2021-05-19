@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace BookEditor
 {
+    //class used to handle filtering lists
     class Filter
     {
         private List<Book> bTempList = new List<Book>();
+
+        //method used to filter book list by given property
         public List<Book> FilterBookList(List<Book> bList, string filterKey)
         {
             bTempList.Clear();
@@ -29,6 +32,7 @@ namespace BookEditor
             return bTempList;
         }
 
+        //method used to show taken books from user list
         public List<Book> ShowTakenBookList(List<User> uList)
         {
             bTempList.Clear();

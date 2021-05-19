@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BookEditor
 {
+    //class used to handle user object and his properties
     class User
     {
+        //object user stores these properties
         public Book bookName { get; set; }
         public string user { get; set; }        
         public int period { get; set; }      
