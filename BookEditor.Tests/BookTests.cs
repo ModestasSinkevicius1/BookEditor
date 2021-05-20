@@ -10,13 +10,13 @@ namespace BookEditor.Tests
         [TestMethod]
         public void Book_GetObjectProperties_AreEqual()
         {
-            Book bExpected, bActual;
+            Book expected, actual;
 
-            bExpected = new Book("test_name", "test_author", "test_category", "test_language", new DateTime(1999 - 01 - 01), 00000000);
+            expected = new Book("test_name", "test_author", "test_category", "test_language", new DateTime(1999 - 01 - 01), 00000000);
 
-            bActual = bExpected;
+            actual = expected;
 
-            Assert.AreEqual(bExpected, bActual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

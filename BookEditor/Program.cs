@@ -32,26 +32,36 @@ namespace BookEditor
                     //checking if commands parts matches required total command keys
                     if (commandKeys.Length - 1 == 6)
                     {
-                        bcm.AddNewBook(commandKeys);
+                        Console.WriteLine(bcm.AddNewBook(commandKeys));
                     }
                     else
                     {
-                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");
-                        Console.ReadLine();
+                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");                        
                     }
+                    Console.ReadLine();
                 }
                 //readall command reads all books by given order
                 else if (commandKeys[0] == "readall")
                 {
                     if (commandKeys.Length - 1 == 1)
                     {
-                        bcm.ReadBookList(commandKeys);
+                        if (bcm.ReadBookList(commandKeys) != null)
+                        {
+                            foreach (Book uRow in bcm.ReadBookList(commandKeys))
+                            {
+                                Console.WriteLine(uRow.name + " " + uRow.author + " " + uRow.category
+                                    + " " + uRow.language + " " + uRow.publicationDate.ToShortDateString()
+                                    + " " + uRow.isbn);
+                            }
+                        }
+                        else
+                            Console.WriteLine("Book not found or incorectly entered");
                     }
                     else
                     {
-                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");
-                        Console.ReadLine();
+                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");                        
                     }
+                    Console.ReadLine();
                 }
 
                 //take command creates user and given book period
@@ -59,39 +69,39 @@ namespace BookEditor
                 {
                     if (commandKeys.Length - 1 == 3)
                     {
-                        bcm.TakeBook(commandKeys);
+                        Console.WriteLine(bcm.TakeBook(commandKeys));
                     }
                     else
                     {
-                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");
-                        Console.ReadLine();
+                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");                        
                     }
+                    Console.ReadLine();
                 }
                 //return command returns book from given user
                 else if (commandKeys[0] == "return")
                 {
                     if (commandKeys.Length - 1 == 2)
                     {
-                        bcm.ReadBookList(commandKeys);
+                        Console.WriteLine(bcm.ReturnBook(commandKeys));
                     }
                     else
                     {
-                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");
-                        Console.ReadLine();
+                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");                       
                     }
+                    Console.ReadLine();
                 }
                 //delete command deletes book from "book.json"
                 else if (commandKeys[0] == "delete")
                 {
                     if (commandKeys.Length - 1 == 1)
                     {
-                        bcm.DeleteBook(commandKeys);
+                        Console.WriteLine(bcm.DeleteBook(commandKeys));
                     }
                     else
                     {
-                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");
-                        Console.ReadLine();
+                        Console.WriteLine("Command adress was not complete or inocorrect check readme file, aborting operation");                       
                     }
+                    Console.ReadLine();
                 }
                 //quit commands ends application
                 else if (commandKeys[0] == "quit")
@@ -102,9 +112,9 @@ namespace BookEditor
                 }
                 else
                 {
-                    Console.WriteLine("Unknown command, check readme file");
-                    Console.ReadLine();
+                    Console.WriteLine("Unknown command, check readme file");                    
                 }
+                Console.ReadLine();
                 Console.Clear();
             }           
         }

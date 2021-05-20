@@ -15,10 +15,10 @@ namespace BookEditor
         public string category { get; set; }
         public string language { get; set; }
         public DateTime publicationDate { get; set; }
-        public int isbn { get; set; }
+        public long isbn { get; set; }
         
 
-        public Book(string name, string author, string category, string language, DateTime publicationDate, int isbn)
+        public Book(string name, string author, string category, string language, DateTime publicationDate, long isbn)
         {
             this.name = name;
             this.author = author;
