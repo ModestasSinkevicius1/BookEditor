@@ -8,7 +8,7 @@ namespace BookEditor.Tests
     public class BookTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Book_GetObjectProperties_AreEqual()
         {
             Book bExpected, bActual;
 
