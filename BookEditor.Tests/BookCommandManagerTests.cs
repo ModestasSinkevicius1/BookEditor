@@ -14,8 +14,10 @@ namespace BookEditor.Tests
 
             string testCommandAddress = "add test_name test_author test_category test_language 1000-01-01 00000000";
             string[] testCommandKeys = testCommandAddress.Split(" ");
+          
+            //bcm.AddNewBook(testCommandKeys);
 
-            //bcm.AddNewBook(testCommandKeys);                        
+            //Assert.IsTrue(bcm.isFunctionExecutedSuccesfuly());
         }
     }
 }

@@ -15,6 +15,8 @@ namespace BookEditor
         JSONReaderWriter jsonRW = new JSONReaderWriter();
         Filter f = new Filter();
 
+        bool state = false;
+
         public void AddNewBook(string[] commandKeys)
         {
             try
@@ -33,6 +35,8 @@ namespace BookEditor
                 //adding object to json file
                 jsonRW.WriteObjectToJSON(b, "book.json");
 
+                state = true;
+
                 Console.WriteLine("New book has been added");
                 Console.ReadLine();
             }
@@ -44,26 +48,35 @@ namespace BookEditor
         }
 
         public void ReadBookList(string[] commandKeys)
-        {
+        {            
             string filterKey = commandKeys[1];
+            bool bookListNotFound = false;
             if (filterKey != "taken")
             {
                 foreach (Book bRow in f.FilterBookList(jsonRW.ReadBookFromJSON("book.json"), filterKey))
                 {
+                    bookListNotFound = true;
+
                     Console.WriteLine(bRow.name + " " + bRow.author + " " + bRow.category
                         + " " + bRow.language + " " + bRow.publicationDate.ToShortDateString() + " " + bRow.isbn);
-                }
-                Console.ReadLine();
+                }                
             }
             else
             {
                 foreach (Book bRow in f.ShowTakenBookList(jsonRW.ReadUserFromJSON("user.json")))
                 {
+                    bookListNotFound = true;
+
                     Console.WriteLine(bRow.name + " " + bRow.author + " " + bRow.category
                         + " " + bRow.language + " " + bRow.publicationDate.ToShortDateString() + " " + bRow.isbn);
-                }
-                Console.ReadLine();
+                }            
             }
+            if(!bookListNotFound)
+            {
+                Console.WriteLine("Library or taken books are empty");
+            }
+            state = true;
+            Console.ReadLine();
         }
         public void TakeBook(string[] commandKeys)
         {
@@ -102,8 +115,7 @@ namespace BookEditor
 
                                 jsonRW.WriteObjectToJSON(u, "user.json");
 
-                                Console.WriteLine("Thank you taking our book");
-                                Console.ReadLine();
+                                Console.WriteLine("Thank you taking our book");                               
                             }
                             else
                                 Console.WriteLine("You took to many books");
@@ -114,17 +126,16 @@ namespace BookEditor
                     }
                     catch (Exception exc)
                     {
-                        Console.WriteLine(exc.Message + ". Bad input format");
-                        Console.ReadLine();
+                        Console.WriteLine(exc.Message + ". Bad input format");                      
                     }
                 }
             }
 
             if (!isBookFound)
             {
-                Console.WriteLine("Book not found");
-                Console.ReadLine();
+                Console.WriteLine("Book not found");                
             }
+            Console.ReadLine();
         }
 
         public void ReturnBook(string[] commandKeys)
@@ -149,34 +160,46 @@ namespace BookEditor
                     isBookFound = true;
                     jsonRW.DeleteUserFromJSON("user.json", uRow);
 
-                    Console.WriteLine("Book has been returned");
-                    Console.ReadLine();
+                    Console.WriteLine("Book has been returned");                   
 
                     break;
                 }
             }
             if (!isBookFound)
             {
-                Console.WriteLine("Book not found");
-                Console.ReadLine();
+                Console.WriteLine("Book not found");                
             }
+            Console.ReadLine();
         }
 
         public void DeleteBook(string[] commandKeys)
         {
             string keyWord = commandKeys[1];
+
+            bool isBookFound = false;
+
             foreach (Book bRow in jsonRW.ReadBookFromJSON("book.json"))
             {
+                isBookFound = true;
+
                 if (bRow.name == keyWord || bRow.author == keyWord)
                 {
                     jsonRW.DeleteBookFromJSON("book.json", bRow);
 
-                    Console.WriteLine("Book has been deleted");
-                    Console.ReadLine();
+                    Console.WriteLine("Book has been deleted");                    
 
                     break;
                 }
             }
+            if(!isBookFound)
+                Console.WriteLine("Book not found");
+
+            Console.ReadLine();
+        }
+
+        public bool isFunctionExecutedSuccesfuly()
+        {
+            return state;
         }
     }
 }
