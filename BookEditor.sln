@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookEditor", "BookEditor\BookEditor.csproj", "{107B8BB1-51ED-49D9-923C-7F877D66EF39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookEditor.UnitTests", "BookEditor.UnitTests\BookEditor.UnitTests.csproj", "{CEBDA974-208B-4484-862F-9A974DBF94EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookEditor.Tests", "BookEditor.Tests\BookEditor.Tests.csproj", "{33F46B87-E641-4C2C-B575-7C057B82406A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{107B8BB1-51ED-49D9-923C-7F877D66EF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{107B8BB1-51ED-49D9-923C-7F877D66EF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{107B8BB1-51ED-49D9-923C-7F877D66EF39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEBDA974-208B-4484-862F-9A974DBF94EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEBDA974-208B-4484-862F-9A974DBF94EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEBDA974-208B-4484-862F-9A974DBF94EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEBDA974-208B-4484-862F-9A974DBF94EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F46B87-E641-4C2C-B575-7C057B82406A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F46B87-E641-4C2C-B575-7C057B82406A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F46B87-E641-4C2C-B575-7C057B82406A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F46B87-E641-4C2C-B575-7C057B82406A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

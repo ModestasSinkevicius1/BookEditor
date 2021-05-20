@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BookEditor
 {
     //class used to handle book object and his properties
-    class Book
+    public class Book
     {
         //object book stores these properties
         public string name { get; set; }
