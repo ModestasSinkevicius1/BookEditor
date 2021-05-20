@@ -13,7 +13,7 @@ Application used to control Visma's library
 **Example:** add Vagis Jonas_Biliunas drama lt 1905-06-12 9789986094814
 
 #
-**readall** (book_property) - lists all books descending order.
+**readall** (book_property) - lists all books ascending order.
 
 **Example:** readall isbn
 
